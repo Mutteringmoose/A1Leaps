@@ -3763,23 +3763,19 @@ function renderTOSChain(exp, data) {
     <table class="tos-table">
       <thead>
         <tr class="tos-col-header">
-          <th class="calls-hdr" colspan="7">CALLS</th>
+          <th class="calls-hdr" colspan="5">CALLS</th>
           <th class="strike-hdr">STRIKE</th>
-          <th class="puts-hdr" colspan="7">PUTS</th>
+          <th class="puts-hdr" colspan="5">PUTS</th>
         </tr>
         <tr class="tos-col-header">
           <th class="calls-hdr">Delta</th>
           <th class="calls-hdr">Last</th>
-          <th class="calls-hdr">Chng</th>
-          <th class="calls-hdr">Bid</th>
           <th class="calls-hdr">Ask</th>
           <th class="calls-hdr">Vol</th>
           <th class="calls-hdr">OI</th>
           <th class="strike-hdr">—</th>
-          <th class="puts-hdr">Bid</th>
           <th class="puts-hdr">Ask</th>
           <th class="puts-hdr">Last</th>
-          <th class="puts-hdr">Chng</th>
           <th class="puts-hdr">Vol</th>
           <th class="puts-hdr">OI</th>
           <th class="puts-hdr">Delta</th>
@@ -3820,16 +3816,12 @@ function renderTOSChain(exp, data) {
     html += `<tr${rowHighlight}>
       <td class="${cClass}" style="color:${Math.abs(parseFloat(cDelta)||0)>=0.6?'#00e676':Math.abs(parseFloat(cDelta)||0)>=0.3?'var(--warn)':'var(--muted)'}">${cDelta}</td>
       <td class="${cClass}">${cLast}</td>
-      <td class="${cClass}">${cChng}</td>
-      <td class="${cClass}">${cBid}</td>
       <td class="${cClass}">${cAsk}</td>
       <td class="${cClass}" style="color:var(--muted)">${volFlag(c.volume)}${cVol}</td>
       <td class="${cClass}" style="color:var(--muted)">${cOI}</td>
       <td class="${sClass}">$${parseFloat(strike).toFixed(0)}${isATM ? '<br><span style="font-size:8px;color:var(--accent)">ATM</span>' : ''}</td>
-      <td class="${pClass}">${pBid}</td>
       <td class="${pClass}">${pAsk}</td>
       <td class="${pClass}">${pLast}</td>
-      <td class="${pClass}">${pChng}</td>
       <td class="${pClass}" style="color:var(--muted)">${volFlag(p.volume)}${pVol}</td>
       <td class="${pClass}" style="color:var(--muted)">${pOI}</td>
       <td class="${pClass}" style="color:${Math.abs(parseFloat(pDelta)||0)>=0.6?'#00e676':Math.abs(parseFloat(pDelta)||0)>=0.3?'var(--warn)':'var(--muted)'}">${pDelta}</td>
