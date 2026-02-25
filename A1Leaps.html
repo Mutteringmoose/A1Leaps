@@ -3763,11 +3763,12 @@ function renderTOSChain(exp, data) {
     <table class="tos-table">
       <thead>
         <tr class="tos-col-header">
-          <th class="calls-hdr" colspan="6">CALLS</th>
+          <th class="calls-hdr" colspan="7">CALLS</th>
           <th class="strike-hdr">STRIKE</th>
-          <th class="puts-hdr" colspan="6">PUTS</th>
+          <th class="puts-hdr" colspan="7">PUTS</th>
         </tr>
         <tr class="tos-col-header">
+          <th class="calls-hdr">Delta</th>
           <th class="calls-hdr">Last</th>
           <th class="calls-hdr">Chng</th>
           <th class="calls-hdr">Bid</th>
@@ -3781,6 +3782,7 @@ function renderTOSChain(exp, data) {
           <th class="puts-hdr">Chng</th>
           <th class="puts-hdr">Vol</th>
           <th class="puts-hdr">OI</th>
+          <th class="puts-hdr">Delta</th>
         </tr>
       </thead>
       <tbody>`;
@@ -3796,6 +3798,7 @@ function renderTOSChain(exp, data) {
     const cChng  = fmtChng(c.change);
     const cBid   = fmt(c.bid);
     const cAsk   = fmt(c.ask);
+    const cDelta = c.greeks?.delta != null ? parseFloat(c.greeks.delta).toFixed(2) : '--';
     const cVol   = fmtInt(c.volume);
     const cOI    = fmtInt(c.open_interest);
 
@@ -3803,6 +3806,7 @@ function renderTOSChain(exp, data) {
     const pAsk   = fmt(p.ask);
     const pLast  = fmt(p.last);
     const pChng  = fmtChng(p.change);
+    const pDelta = p.greeks?.delta != null ? parseFloat(p.greeks.delta).toFixed(2) : '--';
     const pVol   = fmtInt(p.volume);
     const pOI    = fmtInt(p.open_interest);
 
@@ -3814,6 +3818,7 @@ function renderTOSChain(exp, data) {
     const pFire = p.volume && Number(p.volume) >= hotThreshold;
     const rowHighlight = (cFire || pFire) ? ' style="background:rgba(255,140,0,0.07);"' : '';
     html += `<tr${rowHighlight}>
+      <td class="${cClass}" style="color:${Math.abs(parseFloat(cDelta)||0)>=0.6?'#00e676':Math.abs(parseFloat(cDelta)||0)>=0.3?'var(--warn)':'var(--muted)'}">${cDelta}</td>
       <td class="${cClass}">${cLast}</td>
       <td class="${cClass}">${cChng}</td>
       <td class="${cClass}">${cBid}</td>
@@ -3827,6 +3832,7 @@ function renderTOSChain(exp, data) {
       <td class="${pClass}">${pChng}</td>
       <td class="${pClass}" style="color:var(--muted)">${volFlag(p.volume)}${pVol}</td>
       <td class="${pClass}" style="color:var(--muted)">${pOI}</td>
+      <td class="${pClass}" style="color:${Math.abs(parseFloat(pDelta)||0)>=0.6?'#00e676':Math.abs(parseFloat(pDelta)||0)>=0.3?'var(--warn)':'var(--muted)'}">${pDelta}</td>
     </tr>`;
   });
 
